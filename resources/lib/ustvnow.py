@@ -58,7 +58,7 @@ class Ustvnow:
         recordings = []
         for r in re.finditer('class="panel".+?title="(.+?)".+?src="(.+?)".+?' +
                              'class="nowplaying_item">(.+?)<\/td>.+?(?:<\/a>' +
-                             '(.+?)<\/td>.+?)?vertical-align:bottom.+?">(Recorded.+?)' +
+                             '(.+?)<\/td>.+?)?vertical-align:bottom.+?">.+?(Recorded.+?)' +
                              '<\/div>.+?"(rtsp.+?)".+?"(iphone_ajax.+?)"', 
                              html, re.DOTALL):
             chan, icon, title, plot, rec_date, url, del_url = r.groups()
