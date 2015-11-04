@@ -52,13 +52,17 @@ class Ustvnow:
     def get_recordings(self, quality=1, stream_type='rtmp'):
         self._login()
         html = self._get_html('iphone_ajax', {'tab': 'iphone_viewdvrlist'})
+        schedule_index = html.find('Scheduled')
+        if schedule_index > 0:
+            html = html[0:schedule_index]
         recordings = []
         for r in re.finditer('class="panel".+?title="(.+?)".+?src="(.+?)".+?' +
                              'class="nowplaying_item">(.+?)<\/td>.+?(?:<\/a>' +
-                             '(.+?)<\/td>.+?)?vertical-align:bottom.+?">(.+?)' +
+                             '(.+?)<\/td>.+?)?vertical-align:bottom.+?">(Recorded.+?)' +
                              '<\/div>.+?_self" href="(rtsp.+?)".+?href="(.+?)"', 
                              html, re.DOTALL):
             chan, icon, title, plot, rec_date, url, del_url = r.groups()
+            rec_date = rec_date.replace('\n', ' ').replace('\r', '').replace('\t', '')
             url = '%s%s%s' % (stream_type, url[4:-7], 
                               ['350', '650', '950'][quality])
             if plot:
