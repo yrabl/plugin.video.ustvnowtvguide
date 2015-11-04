@@ -59,7 +59,7 @@ class Ustvnow:
         for r in re.finditer('class="panel".+?title="(.+?)".+?src="(.+?)".+?' +
                              'class="nowplaying_item">(.+?)<\/td>.+?(?:<\/a>' +
                              '(.+?)<\/td>.+?)?vertical-align:bottom.+?">(Recorded.+?)' +
-                             '<\/div>.+?_self" href="(rtsp.+?)".+?href="(.+?)"', 
+                             '<\/div>.+?"(rtsp.+?)".+?"(iphone_ajax.+?)"', 
                              html, re.DOTALL):
             chan, icon, title, plot, rec_date, url, del_url = r.groups()
             rec_date = rec_date.replace('\n', ' ').replace('\r', '').replace('\t', '')
